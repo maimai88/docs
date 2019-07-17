@@ -7,8 +7,12 @@ weight: 1
 This is the first in a series of tutorials on working with libp2p’s Go implementation,
 [go-libp2p](https://github.com/libp2p/go-libp2p).
 
+这是系列教程的第一篇
+
 We’ll cover installing Go, setting up a new Go module, starting libp2p nodes, and sending ping
 messages between them.
+
+我们将介绍如何安装Go，设置一个新的Go模块，启动libp2p节点，以及在它们之间发送ping消息。
 
 <!--more-->
 
