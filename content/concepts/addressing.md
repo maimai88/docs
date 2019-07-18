@@ -27,6 +27,26 @@ This can be extended to account for multiple layers of addressing and abstractio
 /ip4/7.7.7.7/tcp/4242/p2p/QmRelay/p2p-circuit/p2p/QmRelayedPeer
 ```
 
+
+灵活的网络需要灵活的寻址系统由于libp2p旨在适用于各种各样的网络，因此我们需要一种以一致的方式处理许多不同寻址方案的方法。
+
+多地址（通常缩写为multiaddr）是将多层寻址信息编码成单个“面向未来”的路径结构的惯例。它定义了人工可读和机器优化的公共传输和覆盖协议编码，并允许将多层寻址组合在一起使用。
+
+例如：/ip4/127.0.0.1/udp/1234对两个协议及其基本寻址信息进行编码。 /ip4/127.0.0.1通知我们我们想要IPv4协议的127.0.0.1环回地址，而/ udp / 1234告诉我们要将UDP数据包发送到端口1234。
+
+随着我们的进一步构成，事情变得更加有趣。例如，multiaddr / p2p / QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N使用libp2p的注册协议id / p2p /以及我的IPFS节点公钥的multihash唯一标识我的本地IPFS节点。
+
+{{％notice“tip”％}}有关对等身份及其与公钥加密的关系的更多信息，请参阅对等身份。 {{％ /注意 ％}}
+
+假设我有如上所述的对等ID QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N，我的公共IP是7.7.7.7。我启动我的libp2p应用程序并侦听TCP端口4242上的连接。
+
+现在我可以开始向所有朋友分发多个用户，格式为/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N。将我的“location multiaddr”（我的IP和端口）与我的“identity multiaddr”（我的libp2p PeerId）组合在一起，产生一个包含两个关键信息的新的multiaddr。
+
+现在不仅我的朋友知道在哪里找到我，他们给那个地址的任何人都可以验证另一方的机器是我，或者至少是他们控制我的PeerId的私钥。他们也知道（凭借/ p2p / protocol id）我可能支持常见的libp2p交互，例如打开连接和协商我们可以用来通信的应用程序协议。那还不错！
+
+这可以扩展到考虑多层寻址和抽象。例如，用于电路中继的地址将传输地址与多个对等体标识组合以形成描述“中继电路”的地址：
+
+
 ### More information
 
 For more detail, see the [multiaddr spec][spec_multiaddr], which has links to many implementations.
